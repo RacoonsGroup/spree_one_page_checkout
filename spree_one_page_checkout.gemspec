@@ -4,15 +4,13 @@ Gem::Specification.new do |s|
   s.name        = 'spree_one_page_checkout'
   s.version     = '0.0.1'
   s.summary     = 'TODO: Add gem summary here'
-  s.description = 'TODO: Add (optional) gem description here'
+  s.description = 'One page checkout implementation for spree'
   s.required_ruby_version = '>= 1.8.7'
 
-  # s.author    = 'Vladimir Protasevich'
-  # s.email     = 'ggg1321@gmail.com'
-  # s.homepage  = 'http://www.spreecommerce.com'
+  s.author    = 'Racoons Group'
+  s.email     = 'racoons-group@gmail.com'
+  s.homepage  = 'http://racoons-group.com'
 
-  #s.files       = `git ls-files`.split("\n")
-  #s.test_files  = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.require_path = 'lib'
   s.requirements << 'none'
 
