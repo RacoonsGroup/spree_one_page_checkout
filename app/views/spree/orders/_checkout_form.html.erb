@@ -1,5 +1,5 @@
 <%= simple_form_for @order, :url => update_checkout_path("cart"), :html => { :id => "checkout_form_address" } do |form| %>
-  <%= form.simple_fields_for :bill_address do |bill_form| %>
+  <%= form.fields_for :bill_address do |bill_form| %>
     <fieldset id='shipping' class='client-info' "data-hook"="fieldset_wrapper">
       <h4> Данные получателя заказа </h4>
       <%= bill_form.input :firstname, label: 'Имя *', required: false, label_html:{class:'block'}, input_html:{class:'checkout-input'} %>
