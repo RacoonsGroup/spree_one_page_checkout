@@ -1,0 +1,68 @@
+<%= simple_form_for @order, :url => update_checkout_path("cart"), :html => { :id => "checkout_form_address" } do |form| %>
+  <%= form.simple_fields_for :bill_address do |bill_form| %>
+    <fieldset id='shipping' class='client-info' "data-hook"="fieldset_wrapper">
+      <h4> Данные получателя заказа </h4>
+      <%= bill_form.input :firstname, label: 'Имя *', required: false, label_html:{class:'block'}, input_html:{class:'checkout-input'} %>
+      <%= bill_form.input :lastname, label: 'Фамилия *', required: false, label_html:{class:'block'}, input_html:{class:'checkout-input'} %>
+      <%= form.input :email, label: 'Ваш Email адрес *', required: false, label_html:{class:'block'}, input_html:{class:'required checkout-input', id:'email'} %>
+      <%= bill_form.input :phone, label: 'Телефон *', required: false, label_html:{class:'block'}, input_html:{class:'checkout-input'} %>
+      <%= bill_form.input :company, label_html:{class:'block'}, input_html:{class:'checkout-input'} %>
+    </fieldset>
+    <fieldset id='billing' class='client-info' "data-hook"="billing_fieldset_wrapper">
+      <h4><%= t(:bill_address) %></h4>
+      <%= bill_form.input :country_id, label: 'Страна *', required: false, collection:available_countries, label_html:{class:'block'}, input_html:{class:'checkout-input'}, :as => :select %>
+      <%= bill_form.input :city, label: 'Город *', required: false, label_html:{class:'block'}, input_html:{class:'checkout-input'} %>
+      <%= bill_form.input :address1, label: 'Адрес *', required: false, label_html:{class:'block'}, input_html:{class:'checkout-input'} %>
+      <%= bill_form.input :zipcode, label: 'Почтовый индекс *', required: false, label_html:{class:'block'}, input_html:{class:'checkout-input'} %>
+      <%= hidden_field_tag 'order[use_billing]', true %>
+    </fieldset>
+    <fieldset id='shipping_method' class='clear-checkout variant-info' "data-hook"="">
+      <h4>Способы доставки</h4>
+      <div id='methods'>
+        <p class='field radios'>
+          <% @order.rate_hash.each do |shipping_method| %>
+            <label>
+              <%= radio_button(:order, :shipping_method_id, shipping_method[:id]) %>
+              <%= shipping_method.name %>
+              <%= number_to_currency shipping_method.cost, :precision => 0 %>
+            </label>
+          <% end %>
+        </p>
+      </div>
+      <% if Spree::Config[:shipping_instructions] && @order.rate_hash.present? %>
+        <p id='minstrs' "data-hook"="">
+          <%= form.label :special_instructions, t(:shipping_instructions) %>
+          <br>
+          <%= form.text_area :special_instructions, :cols => 40, :rows => 7 %>
+      <% end %>
+    </fieldset>
+    <fieldset id="payment" class="variant-info" "data-hook"="">
+      <h4><%= t(:payment_information) %>
+      <div "data-hook"="checkout_payment_step">
+        <% @order.available_payment_methods.each do |method| %>
+          <p>
+            <label>
+              <%= radio_button_tag "order[payments_attributes][][payment_method_id]", method.id, method == @order.payment_method %>
+              <%= t(method.name, :scope => :payment_methods, :default => method.name) %>
+            </label>
+          </p>
+        <% end %>
+        <ul id="payment-methods" "data-hook"="">
+          <% @order.available_payment_methods.each do |method| %>
+            <li class='last' "data-hook"="" id="payment_method_<%=method.id%>">
+              <fieldset>
+                <%= render :partial => "spree/checkout/payment/#{method.method_type}", :locals => { :payment_method => method } %>
+              </fieldset>
+            </li>
+          <% end %>
+        </ul>
+        <br style="clear:both;">
+        <div "data-hook"=""></div>
+      </div>
+    </fieldset>
+    <br class="space">
+    <div class="form-buttons" "data-hook"="buttons">
+      <%= submit_tag t(:save_and_continue), :class => 'btn' %>
+    </div>
+  <% end %>
+<% end %>
