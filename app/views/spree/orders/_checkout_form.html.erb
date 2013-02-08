@@ -1,21 +1,27 @@
-<%= simple_form_for @order, :url => update_checkout_path("cart"), :html => { :id => "checkout_form_address" } do |form| %>
-  <%= form.simple_fields_for :bill_address do |bill_form| %>
-    <fieldset id='shipping' class='client-info' "data-hook"="fieldset_wrapper">
-      <h4> Данные получателя заказа </h4>
-      <%= bill_form.input :firstname, label: 'Имя *', required: false, label_html:{class:'block'}, input_html:{class:'checkout-input'} %>
-      <%= bill_form.input :lastname, label: 'Фамилия *', required: false, label_html:{class:'block'}, input_html:{class:'checkout-input'} %>
-      <%= form.input :email, label: 'Ваш Email адрес *', required: false, label_html:{class:'block'}, input_html:{class:'required checkout-input', id:'email'} %>
-      <%= bill_form.input :phone, label: 'Телефон *', required: false, label_html:{class:'block'}, input_html:{class:'checkout-input'} %>
-      <%= bill_form.input :company, label_html:{class:'block'}, input_html:{class:'checkout-input'} %>
+<%= form_for @order, :url => update_checkout_path('complete'), :html => { :id => "checkout_form_#{@order.state}" } do |form| %>
+  <div class="columns alpha six" data-hook="billing_fieldset_wrapper">
+    <fieldset id="billing" data-hook>
+      <%= form.fields_for :bill_address do |bill_form| %>
+        <legend align="center"><%= t(:billing_address) %></legend>
+        <%= render :partial => 'spree/address/form', :locals => {:form => bill_form, :address_type => 'billing', :address => @order.bill_address} %>
+      <% end %>
     </fieldset>
-    <fieldset id='billing' class='client-info' "data-hook"="billing_fieldset_wrapper">
-      <h4><%= t(:bill_address) %></h4>
-      <%= bill_form.input :country_id, label: 'Страна *', required: false, collection:available_countries, label_html:{class:'block'}, input_html:{class:'checkout-input'}, :as => :select %>
-      <%= bill_form.input :city, label: 'Город *', required: false, label_html:{class:'block'}, input_html:{class:'checkout-input'} %>
-      <%= bill_form.input :address1, label: 'Адрес *', required: false, label_html:{class:'block'}, input_html:{class:'checkout-input'} %>
-      <%= bill_form.input :zipcode, label: 'Почтовый индекс *', required: false, label_html:{class:'block'}, input_html:{class:'checkout-input'} %>
-      <%= hidden_field_tag 'order[use_billing]', true %>
+  </div>
+
+  <div class="columns omega twelve" data-hook="shipping_fieldset_wrapper">
+    <fieldset id="shipping" data-hook>
+      <%= form.fields_for :ship_address do |ship_form| %>
+        <legend align="center"><%= t(:shipping_address) %></legend>
+        <p class="field checkbox" data-hook="use_billing">
+          <%= check_box_tag 'order[use_billing]', '1', ((@order.bill_address.empty? && @order.ship_address.empty?) || @order.bill_address.same_as?(@order.ship_address)) %>
+          <%= label_tag :order_use_billing, t(:use_billing_address), :id => 'use_billing' %>
+        </p>
+        <%= render :partial => 'spree/address/form', :locals => {:form => ship_form, :address_type => 'shipping', :address => @order.ship_address} %>
+      <% end %>
     </fieldset>
+  </div>
+
+  <div class='columns four alpha' data-hook='delivery_fieldset_wrapper' >
     <fieldset id='shipping_method' class='clear-checkout variant-info' "data-hook"="">
       <h4>Способы доставки</h4>
       <div id='methods'>
@@ -36,6 +42,9 @@
           <%= form.text_area :special_instructions, :cols => 40, :rows => 7 %>
       <% end %>
     </fieldset>
+  </div>
+
+  <div class 'omega twelve columns' >
     <fieldset id="payment" class="variant-info" "data-hook"="">
       <h4><%= t(:payment_information) %>
       <div "data-hook"="checkout_payment_step">
@@ -60,9 +69,10 @@
         <div "data-hook"=""></div>
       </div>
     </fieldset>
-    <br class="space">
-    <div class="form-buttons" "data-hook"="buttons">
-      <%= submit_tag t(:save_and_continue), :class => 'btn' %>
-    </div>
-  <% end %>
+  </div>
+
+  <br class="space">
+  <div class="form-buttons" "data-hook"="buttons">
+    <%= submit_tag t(:checkout), :class => 'btn' %>
+  </div>
 <% end %>
