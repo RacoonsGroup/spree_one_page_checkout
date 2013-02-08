@@ -14,15 +14,7 @@ Spree::CheckoutController.class_eval do
   def update
     if @order.update_attributes(object_params)
       @order.run_states
-      @order.update_attributes(:state => 'complete', :completed_at => Time.now)
       fire_event('spree.checkout.update')
-      if @order.next
-        state_callback(:after)
-      else
-        flash[:error] = t(:payment_processing_failed)
-        respond_with(@order, :location => checkout_state_path(@order.state))
-        return
-      end
       flash.notice = t(:order_processed_successfully)
       flash[:commerce_tracking] = "nothing special"
       respond_with(@order, :location => completion_route)
