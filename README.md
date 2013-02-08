@@ -1,21 +1,17 @@
 SpreeOnePageCheckout
 ====================
 
-Introduction goes here.
+Beta version of spree one page checkout implementation gem.
 
 
 Example
 =======
 
-Example goes here.
+Example will be later
 
-Testing
--------
+Contribute
+==========
 
-Be sure to bundle your dependencies and then create a dummy test app for the specs to run against.
+Feel free to send pull requests!
 
-    $ bundle
-    $ bundle exec rake test_app
-    $ bundle exec rspec spec
-
-Copyright (c) 2013 [name of extension creator], released under the New BSD License
+Copyright (c) 2013 [Racoons Group], released under the New BSD License
