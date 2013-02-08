@@ -3,7 +3,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_one_page_checkout'
   s.version     = '0.0.1'
-  s.summary     = 'TODO: Add gem summary here'
+  s.summary     = 'One page checkout implementation for spree'
   s.description = 'One page checkout implementation for spree'
   s.required_ruby_version = '>= 1.8.7'
 
