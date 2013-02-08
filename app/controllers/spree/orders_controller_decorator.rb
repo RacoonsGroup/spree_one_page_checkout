@@ -1,7 +1,5 @@
 Spree::OrdersController.class_eval do
 
-  respond_to :js, only: [:update]
-
   def edit
     @order = current_order(true)
     associate_user
@@ -28,8 +26,4 @@ Spree::OrdersController.class_eval do
       @order.shipping_method ||= (@order.rate_hash.first && @order.rate_hash.first[:shipping_method])
     end
 
-    def resend
-      OrderMailer.admin_notification(@order, true).deliver
-      super
-    end
 end
