@@ -2,20 +2,19 @@
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_one_page_checkout'
-  s.version     = '0.0.1'
+  s.version     = '1.0.0'
   s.summary     = 'One page checkout implementation for spree'
   s.description = 'One page checkout implementation for spree'
   s.required_ruby_version = '>= 1.8.7'
 
   s.author    = 'Racoons Group'
-  s.email     = 'racoons-group@gmail.com'
+  s.email     = 'contact@racoons-group.com'
   s.homepage  = 'http://racoons-group.com'
 
   s.require_path = 'lib'
   s.requirements << 'none'
 
   s.add_dependency 'spree_core', '~> 1.3.0'
-  s.add_dependency 'simple_form', '2.0.4'
 
   s.add_development_dependency 'capybara', '~> 1.1.2'
   s.add_development_dependency 'coffee-rails'
