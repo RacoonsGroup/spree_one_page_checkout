@@ -1,4 +1,9 @@
-<%= form_for @order, :url => update_checkout_path('complete'), :html => { :id => "checkout_form_#{@order.state}" } do |form| %>
+<% content_for :head do %>
+  <%= javascript_include_tag '/states' %>
+  <%= javascript_include_tag '/countries' %>
+<% end %>
+
+<%= form_for @order, :url => update_checkout_path('payment'), :html => { :id => "checkout_form_address" } do |form| %>
   <div class="columns alpha six" data-hook="billing_fieldset_wrapper">
     <fieldset id="billing" data-hook>
       <%= form.fields_for :bill_address do |bill_form| %>

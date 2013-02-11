@@ -1,0 +1,5 @@
+<tbody id="line_items" data-hook>
+<%= order_form.fields_for :line_items do |item_form| %>
+  <%= render :partial => 'spree/orders/line_item', :locals => { :variant => item_form.object.variant, :line_item => item_form.object, :item_form => item_form } %>
+<% end %>
+</tbody>
