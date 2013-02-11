@@ -1,5 +1,7 @@
 Spree::CheckoutController.class_eval do
 
+  helper 'spree/products'
+
   # change this to alias / spree
   def object_params
     if params[:payment_source].present? && source_params = params.delete(:payment_source)[params[:order][:payments_attributes].first[:payment_method_id].underscore]
@@ -19,7 +21,7 @@ Spree::CheckoutController.class_eval do
       flash[:commerce_tracking] = "nothing special"
       respond_with(@order, :location => completion_route)
     else
-      respond_with(@order) { |format| format.html { render :edit } }
+      respond_with(@order) { |format| format.html { render :template => 'spree/orders/edit' } }
     end
   end
 end

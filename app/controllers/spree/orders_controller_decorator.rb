@@ -5,7 +5,7 @@ Spree::OrdersController.class_eval do
     associate_user
     @order.bill_address ||= Spree::Address.default
     @order.ship_address ||= Spree::Address.default
-    before_delivery
+    #before_delivery
     @order.payments.destroy_all if request.put?
   end
 
