@@ -16,3 +16,16 @@ $ ->
     # Activate already checked payment method if form is re-rendered
     # i.e. if user enters invalid data
     ($ 'input[type="radio"]:checked').click()
+
+    ($ 'input#order_use_billing').click(->
+      if ($ this).is(':checked')
+        ($ 'input[type="submit"][value="Checkout"][data-hook="one_page_checout_button"]').css("margin-left", "10px")
+        ($ '#shipping_method_wrapper').removeClass('alpha')
+        ($ '#shipping_method_wrapper').addClass('omega')
+      else
+        ($ 'input[type="submit"][value="Checkout"][data-hook="one_page_checout_button"]').css("margin-left", "0")
+        ($ '#shipping_method_wrapper').removeClass('omega')
+        ($ '#shipping_method_wrapper').addClass('alpha')
+    ).triggerHandler 'click'
+    # deface cannot did it
+    ($ 'button#checkout-link').remove()
