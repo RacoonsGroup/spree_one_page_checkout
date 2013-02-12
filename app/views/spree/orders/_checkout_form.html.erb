@@ -4,7 +4,7 @@
 <% end %>
 
 <%= form_for @order, :url => update_checkout_path('payment'), :html => { :id => "checkout_form_address" } do |form| %>
-  <div class="columns alpha six" data-hook="billing_fieldset_wrapper">
+  <div class="columns alpha eight" data-hook="billing_fieldset_wrapper">
     <fieldset id="billing" data-hook>
       <%= form.fields_for :bill_address do |bill_form| %>
         <legend align="center"><%= t(:billing_address) %></legend>
@@ -13,7 +13,7 @@
     </fieldset>
   </div>
 
-  <div class="columns omega twelve" data-hook="shipping_fieldset_wrapper">
+  <div class="columns omega eight" data-hook="shipping_fieldset_wrapper">
     <fieldset id="shipping" data-hook>
       <%= form.fields_for :ship_address do |ship_form| %>
         <legend align="center"><%= t(:shipping_address) %></legend>
@@ -26,9 +26,9 @@
     </fieldset>
   </div>
 
-  <div class='columns four alpha' data-hook='delivery_fieldset_wrapper' >
+  <div class='columns eight omega' data-hook='delivery_fieldset_wrapper' id="shipping_method_wrapper" >
     <fieldset id='shipping_method' class='clear-checkout variant-info' "data-hook"="">
-      <h4>Способы доставки</h4>
+      <legend align="center"><%= t(:shipping_method) %></legend>
       <div id='methods'>
         <p class='field radios'>
           <% @order.rate_hash.each do |shipping_method| %>
@@ -49,9 +49,9 @@
     </fieldset>
   </div>
 
-  <div class 'omega twelve columns' >
+  <div class='omega eight columns'>
     <fieldset id="payment" class="variant-info" "data-hook"="">
-      <h4><%= t(:payment_information) %>
+      <legend align="center"><%= t(:payment_information) %></legend>
       <div "data-hook"="checkout_payment_step">
         <% @order.available_payment_methods.each do |method| %>
           <p>
@@ -76,8 +76,8 @@
     </fieldset>
   </div>
 
-  <br class="space">
+  <br class="space" />
   <div class="form-buttons" "data-hook"="buttons">
-    <%= submit_tag t(:checkout), :class => 'btn' %>
+    <%= submit_tag t(:checkout), :class => 'btn one-page-checkout-button', 'data-hook' => 'one_page_checout_button' %>
   </div>
 <% end %>
