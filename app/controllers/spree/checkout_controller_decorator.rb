@@ -15,6 +15,9 @@ Spree::CheckoutController.class_eval do
 
   def update
     if @order.update_attributes(object_params)
+      if @order.next
+        state_callback(:after)
+      end
       @order.run_states
       fire_event('spree.checkout.update')
       flash.notice = t(:order_processed_successfully)
