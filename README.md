@@ -1,13 +1,26 @@
 SpreeOnePageCheckout
 ====================
 
-Beta version of spree one page checkout implementation gem.
+Spree one page checkout implementation gem.
+
+It's add checkout form into cart page.
 
 
-Example
+Demo
 =======
 
-Example will be later
+Demo of the gem you can see here http://rg-spree-gems-test.herokuapp.com/
+
+Installation
+------------
+    # see the notes in Versionfile if you are using an older version of spree
+    gem 'spree_one_page_checkout'
+
+    bundle install
+
+    bundle exec rails g spree_one_page_checkout:install
+
+
 
 Contribute
 ==========
