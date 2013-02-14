@@ -3,3 +3,6 @@
 
 en:
   hello: "Hello world"
+  without_delivery: 'In your area delivery is not done.'
+  please_select_shipping_method: 'Please select the shipping method.'
+  check_shipping_methods: 'Check the shipping methods.'
