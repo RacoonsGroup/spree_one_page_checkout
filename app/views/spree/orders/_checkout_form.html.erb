@@ -27,17 +27,10 @@
   </div>
 
   <div class='columns eight omega' data-hook='delivery_fieldset_wrapper' id="shipping_method_wrapper" >
-    <fieldset id='shipping_method' class='clear-checkout variant-info' "data-hook"="">
+    <fieldset id='shipping_method' class='clear-checkout variant-info' "data-hook"="" data-order="<%= @order.id %>" data-not-delivery="<%= t(:without_delivery) %>" data-url="<%= available_shipping_methods_url %>">
       <legend align="center"><%= t(:shipping_method) %></legend>
       <div id='methods'>
         <p class='field radios'>
-          <% @order.rate_hash.each do |shipping_method| %>
-            <label>
-              <%= radio_button(:order, :shipping_method_id, shipping_method[:id]) %>
-              <%= shipping_method.name %>
-              <%= number_to_currency shipping_method.cost, :precision => 0 %>
-            </label>
-          <% end %>
         </p>
       </div>
       <% if Spree::Config[:shipping_instructions] && @order.rate_hash.present? %>
@@ -46,6 +39,7 @@
           <br>
           <%= form.text_area :special_instructions, :cols => 40, :rows => 7 %>
       <% end %>
+      <center><button class="btn" id="check-shipping-methods"><%= t(:check_shipping_methods) %></button></center>
     </fieldset>
   </div>
 
