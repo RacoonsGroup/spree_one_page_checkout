@@ -14,7 +14,7 @@ Spree::CheckoutController.class_eval do
   end
 
   def update
-    if @order.update_attributes(object_params)
+    if @order.update_attributes(object_params) && params[:order][:shipping_method_id].present?
       if @order.next
         state_callback(:after)
       end
@@ -24,6 +24,7 @@ Spree::CheckoutController.class_eval do
       flash[:commerce_tracking] = "nothing special"
       respond_with(@order, :location => completion_route)
     else
+      flash[:error] = t(:please_select_shipping_method)
       respond_with(@order) { |format| format.html { render :template => 'spree/orders/edit' } }
     end
   end

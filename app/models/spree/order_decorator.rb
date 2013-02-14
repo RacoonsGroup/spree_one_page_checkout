@@ -9,11 +9,6 @@ Spree::Order.class_eval do
     remove_transition :from => :delivery, :to => :confirm
   end
 
-  # monkey patch for the first time
-  def available_shipping_methods(display_on = nil)
-    Spree::ShippingMethod.all
-  end
-
   def run_states
     ActiveRecord::Base.transaction do
       update!
