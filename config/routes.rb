@@ -1,3 +1,3 @@
 Spree::Core::Engine.routes.draw do
-  # Add your extension routes here
+  post 'ajax/order/available_shipping_methods' => 'shipping_methods#index', :as => :available_shipping_methods
 end
