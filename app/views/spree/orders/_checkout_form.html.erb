@@ -9,7 +9,7 @@
       <legend align="center"><%= t(:billing_address) %></legend>
       <% unless user_signed_in? %>
         <%= form.label :email %><br />
-        <%= form.text_field :email %>
+        <%= form.text_field :email, :class => 'required' %>
       <% end %>
       <%= form.fields_for :bill_address do |bill_form| %>
         <%= render :partial => 'spree/address/form', :locals => {:form => bill_form, :address_type => 'billing', :address => @order.bill_address} %>
@@ -43,7 +43,7 @@
           <br>
           <%= form.text_area :special_instructions, :cols => 40, :rows => 7 %>
       <% end %>
-      <center><button class="btn" id="check-shipping-methods"><%= t(:check_shipping_methods) %></button></center>
+      <center><button class="btn" id="check-shipping-methods" type="button"><%= t(:check_shipping_methods) %></button></center>
     </fieldset>
   </div>
 

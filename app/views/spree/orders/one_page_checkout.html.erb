@@ -1,5 +1,5 @@
 <% if !Spree::Auth::Config[:registration_step] || user_signed_in? %>
-  <%= render :partial => 'checkout_form' %>
+  <%= render :partial => 'spree/orders/checkout_form' %>
 <% else %>
   <%= render :template => 'spree/user_sessions/new' %>
 <% end %>
