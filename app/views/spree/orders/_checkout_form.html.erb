@@ -6,8 +6,12 @@
 <%= form_for @order, :url => update_checkout_path('payment'), :html => { :id => "checkout_form_address" } do |form| %>
   <div class="columns alpha eight" data-hook="billing_fieldset_wrapper">
     <fieldset id="billing" data-hook>
+      <legend align="center"><%= t(:billing_address) %></legend>
+      <% unless user_signed_in? %>
+        <%= form.label :email %><br />
+        <%= form.text_field :email %>
+      <% end %>
       <%= form.fields_for :bill_address do |bill_form| %>
-        <legend align="center"><%= t(:billing_address) %></legend>
         <%= render :partial => 'spree/address/form', :locals => {:form => bill_form, :address_type => 'billing', :address => @order.bill_address} %>
       <% end %>
     </fieldset>

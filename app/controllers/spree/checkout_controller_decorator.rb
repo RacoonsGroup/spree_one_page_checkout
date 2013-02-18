@@ -1,5 +1,7 @@
 Spree::CheckoutController.class_eval do
 
+  skip_filter(:check_registration)
+
   helper 'spree/products'
 
   # change this to alias / spree
