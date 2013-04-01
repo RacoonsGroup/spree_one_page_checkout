@@ -26,6 +26,7 @@ Spree::CheckoutController.class_eval do
       flash[:commerce_tracking] = "nothing special"
       respond_with(@order, :location => completion_route)
     else
+      puts "="*10000
       flash[:error] = t(:please_select_shipping_method)
       respond_with(@order) { |format| format.html { render :template => 'spree/orders/edit' } }
     end

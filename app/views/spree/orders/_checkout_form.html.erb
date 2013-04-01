@@ -48,20 +48,20 @@
   </div>
 
   <div class='omega eight columns'>
-    <fieldset id="payment" class="variant-info" "data-hook"="">
+    <fieldset id="payment" class="variant-info" "data-hook">
       <legend align="center"><%= t(:payment_information) %></legend>
       <div "data-hook"="checkout_payment_step">
         <% @order.available_payment_methods.each do |method| %>
           <p>
             <label>
-              <%= radio_button_tag "order[payments_attributes][][payment_method_id]", method.id, method == @order.payment_method %>
+              <%= radio_button_tag "order[payments_attributes][][payment_method_id]", method.id %>
               <%= t(method.name, :scope => :payment_methods, :default => method.name) %>
             </label>
           </p>
         <% end %>
-        <ul id="payment-methods" "data-hook"="">
+        <ul id="payment-methods" "data-hook">
           <% @order.available_payment_methods.each do |method| %>
-            <li class='last' "data-hook"="" id="payment_method_<%=method.id%>">
+            <li id="payment_method_<%= method.id %>" class="<%= 'last' if method == @order.available_payment_methods.last %>" data-hook>
               <fieldset>
                 <%= render :partial => "spree/checkout/payment/#{method.method_type}", :locals => { :payment_method => method } %>
               </fieldset>
@@ -69,7 +69,7 @@
           <% end %>
         </ul>
         <br style="clear:both;">
-        <div "data-hook"=""></div>
+        <div data-hook="coupon_code_field" data-hook></div>
       </div>
     </fieldset>
   </div>
