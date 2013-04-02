@@ -3,7 +3,7 @@
   <%= javascript_include_tag '/countries' %>
 <% end %>
 
-<%= form_for @order, :url => update_checkout_path('payment'), :html => { :id => "checkout_form_address" } do |form| %>
+<%= form_for @order, :url => update_checkout_path('payment'), :html => { :id => "checkout_form_payment" } do |form| %>
   <div class="columns alpha eight" data-hook="billing_fieldset_wrapper">
     <fieldset id="billing" data-hook>
       <legend align="center"><%= t(:billing_address) %></legend>
@@ -77,5 +77,6 @@
   <br class="space" />
   <div class="form-buttons" "data-hook"="buttons">
     <%= submit_tag t(:checkout), :class => 'btn one-page-checkout-button', 'data-hook' => 'one_page_checout_button' %>
+    <script>disableSaveOnClick();</script>
   </div>
 <% end %>
