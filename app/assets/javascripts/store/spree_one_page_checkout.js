@@ -1,4 +1,4 @@
 //= require store/spree_core
-//= require store/script
 //= require store/checkout
+//= require store/script
 //= require_tree ./templates
