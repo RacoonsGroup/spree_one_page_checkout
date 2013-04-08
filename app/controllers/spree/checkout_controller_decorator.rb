@@ -6,8 +6,10 @@ Spree::CheckoutController.class_eval do
 
   # change this to alias / spree
   def object_params
-    if params[:payment_source].present? && source_params = params.delete(:payment_source)[params[:order][:payments_attributes].first[:payment_method_id].underscore]
-      params[:order][:payments_attributes].first[:source_attributes] = source_params
+    unless params[:order][:payments_attributes].nil?
+      if params[:payment_source].present? && source_params = params.delete(:payment_source)[params[:order][:payments_attributes].first[:payment_method_id].try(:underscore)]
+        params[:order][:payments_attributes].first[:source_attributes] = source_params
+      end
     end
     if (params[:order][:payments_attributes])
       params[:order][:payments_attributes].first[:amount] = @order.total
@@ -26,7 +28,7 @@ Spree::CheckoutController.class_eval do
       flash[:commerce_tracking] = "nothing special"
       respond_with(@order, :location => completion_route)
     else
-      flash[:error] = t(:please_select_shipping_method)
+      flash[:error] = t(:please_select_shipping_method) if params[:order][:shipping_method_id].nil?
       respond_with(@order) { |format| format.html { render :template => 'spree/orders/edit' } }
     end
   end
