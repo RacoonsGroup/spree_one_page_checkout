@@ -1,4 +1,4 @@
-<% if !Spree::Auth::Config[:registration_step] || user_signed_in? %>
+<% if !Spree::Auth::Config[:registration_step] || spree_user_signed_in? %>
   <%= render :partial => 'spree/orders/checkout_form' %>
 <% else %>
   <%= render :template => 'spree/user_sessions/new' %>
