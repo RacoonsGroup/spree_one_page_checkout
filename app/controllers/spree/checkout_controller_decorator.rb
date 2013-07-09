@@ -26,10 +26,11 @@ Spree::CheckoutController.class_eval do
       fire_event('spree.checkout.update')
       flash.notice = t(:order_processed_successfully)
       flash[:commerce_tracking] = "nothing special"
+
       respond_with(@order, :location => completion_route)
     else
       flash[:error] = t(:please_select_shipping_method) if params[:order][:shipping_method_id].nil?
-      respond_with(@order) { |format| format.html { render :template => 'spree/orders/edit' } }
+      respond_with(@order) { |format| format.html { render :template => 'spree/orders/one_page_checkout' } }
     end
   end
 end
