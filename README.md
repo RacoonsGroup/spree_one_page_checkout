@@ -20,6 +20,14 @@ Installation
 
     bundle exec rails g spree_one_page_checkout:install
 
+Testing
+-------
+
+Before testing you need to create a test app:
+
+    rake test_app
+    
+    rake spec
 
 
 Contribute

@@ -22,7 +22,7 @@ describe Spree::Order do
       before do
         order.bill_address = bill_address
         order.ship_address = ship_address
-        order.shipping_method = shipping_method
+        order.shipping_method_id = shipping_method.id
       end
 
       it 'should have address, adj and  be complete' do
