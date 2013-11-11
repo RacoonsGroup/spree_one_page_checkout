@@ -13,7 +13,6 @@ Spree::Order.class_eval do
     ActiveRecord::Base.transaction do
       update!
       finalize!
-      create_shipment!
       adjustments.each do |adj|
         adj.update!
       end
