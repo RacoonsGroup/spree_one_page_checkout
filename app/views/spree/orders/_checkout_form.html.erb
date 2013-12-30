@@ -4,15 +4,12 @@
 <% end %>
 
 <%= form_for @order, :url => update_checkout_path('payment'), :html => { :id => "checkout_form_payment" } do |form| %>
+
   <div class="columns alpha eight" data-hook="billing_fieldset_wrapper">
     <fieldset id="billing" data-hook>
-      <legend align="center"><%= t(:billing_address) %></legend>
-      <% unless spree_user_signed_in? %>
-        <%= form.label :email %><br />
-        <%= form.text_field :email, :class => 'required' %>
-      <% end %>
       <%= form.fields_for :bill_address do |bill_form| %>
-        <%= render :partial => 'spree/address/form', :locals => {:form => bill_form, :address_type => 'billing', :address => @order.bill_address} %>
+        <legend align="center"><%= Spree.t(:billing_address) %></legend>
+        <%= render :partial => 'spree/address/form', :locals => { :form => bill_form, :address_type => 'billing', :address => @order.bill_address } %>
       <% end %>
     </fieldset>
   </div>
@@ -20,15 +17,18 @@
   <div class="columns omega eight" data-hook="shipping_fieldset_wrapper">
     <fieldset id="shipping" data-hook>
       <%= form.fields_for :ship_address do |ship_form| %>
-        <legend align="center"><%= t(:shipping_address) %></legend>
+        <legend align="center"><%= Spree.t(:shipping_address) %></legend>
         <p class="field checkbox" data-hook="use_billing">
-          <%= check_box_tag 'order[use_billing]', '1', ((@order.bill_address.empty? && @order.ship_address.empty?) || @order.bill_address.same_as?(@order.ship_address)) %>
-          <%= label_tag :order_use_billing, t(:use_billing_address), :id => 'use_billing' %>
+          <%= check_box_tag 'order[use_billing]', '1', @order.shipping_eq_billing_address? %>
+          <%= label_tag :order_use_billing, Spree.t(:use_billing_address), :id => 'use_billing' %>
         </p>
-        <%= render :partial => 'spree/address/form', :locals => {:form => ship_form, :address_type => 'shipping', :address => @order.ship_address} %>
+        <%= render :partial => 'spree/address/form', :locals => { :form => ship_form, :address_type => 'shipping', :address => @order.ship_address } %>
       <% end %>
     </fieldset>
   </div>
+  
+
+  <hr class="clear" />
 
   <div class='columns eight omega' data-hook='delivery_fieldset_wrapper' id="shipping_method_wrapper" >
     <fieldset id='shipping_method' class='clear-checkout variant-info' "data-hook"="" data-order="<%= @order.id %>" data-not-delivery="<%= t(:without_delivery) %>" data-url="<%= available_shipping_methods_url %>">
