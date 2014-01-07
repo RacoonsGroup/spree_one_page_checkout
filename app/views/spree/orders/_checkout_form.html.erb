@@ -1,8 +1,3 @@
-<% content_for :head do %>
-  <%= javascript_include_tag '/states' %>
-  <%= javascript_include_tag '/countries' %>
-<% end %>
-
 <%= form_for @order, :url => update_checkout_path('payment'), :html => { :id => "checkout_form_payment" } do |form| %>
 
   <div class="columns alpha eight" data-hook="billing_fieldset_wrapper">
