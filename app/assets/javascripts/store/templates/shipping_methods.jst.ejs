@@ -2,9 +2,8 @@
   <% data.forEach(function(data){ %>
     <label>
       <input id="order_shipping_method_id_<%= data.id %>" name="order[shipping_method_id]" type="radio" value="<%= data.id %>">
-      <%= data.name %>
-      <%= data.cost %>
+      <span><%= data.name %></span>
+      <span><%= data.cost %></span>
     </label>
   <% }) %>
 </p>
-
